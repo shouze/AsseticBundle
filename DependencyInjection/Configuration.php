@@ -217,6 +217,7 @@ class Configuration implements ConfigurationInterface
                             ->addDefaultsIfNotSet()
                             ->children()
                                 ->booleanNode('enabled')->defaultFalse()->end()
+                                ->scalarNode('separator')->defaultValue('-')->end()
                             ->end()
                         ->end()
                     ->end()

@@ -130,6 +130,7 @@ class AsseticExtension extends Extension
             */
         ));
 
+        $container->setParameter('assetic.workers.cache_busting.separator', $config['workers']['cache_busting']['separator']);
         if ($config['workers']['cache_busting']['enabled']) {
             $container->getDefinition('assetic.worker.cache_busting')->addTag('assetic.factory_worker');
         }

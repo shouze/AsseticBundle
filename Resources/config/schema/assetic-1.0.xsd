@@ -54,6 +54,7 @@
 
     <xsd:complexType name="worker_cache_busting">
         <xsd:attribute name="enabled" type="xsd:boolean" />
+        <xsd:attribute name="separator" type="xsd:string" />
     </xsd:complexType>
 
     <xsd:complexType name="twig">

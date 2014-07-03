@@ -17,6 +17,7 @@
         <parameter key="assetic.filter_manager.class">Symfony\Bundle\AsseticBundle\FilterManager</parameter>
         <parameter key="assetic.worker.ensure_filter.class">Assetic\Factory\Worker\EnsureFilterWorker</parameter>
         <parameter key="assetic.worker.cache_busting.class">Assetic\Factory\Worker\CacheBustingWorker</parameter>
+        <parameter key="assetic.worker.cache_busting.separator">%assetic.workers.cache_busting.separator%</parameter>
         <parameter key="assetic.value_supplier.class">Symfony\Bundle\AsseticBundle\DefaultValueSupplier</parameter>
 
         <parameter key="assetic.node.paths" type="collection"></parameter>
@@ -65,7 +66,10 @@
             <argument /> <!-- filter -->
         </service>
 
-        <service id="assetic.worker.cache_busting" class="%assetic.worker.cache_busting.class%" public="false" />
+        <service id="assetic.worker.cache_busting" class="%assetic.worker.cache_busting.class%" public="false">
+            <argument>%assetic.worker.cache_busting.separator%</argument>
+            <argument type="service" id="assetic.value_supplier" on-invalid="null" />
+        </service>
 
         <service id="assetic.parameter_bag" class="Symfony\Component\DependencyInjection\ParameterBag\ParameterBag" factory-service="service_container" factory-method="getParameterBag" public="false"/>
 

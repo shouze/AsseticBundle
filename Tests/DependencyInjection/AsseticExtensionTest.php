@@ -170,13 +170,15 @@ class AsseticExtensionTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider getCacheBustingWorkerKeys
      */
-    public function testCacheBustingWorker($enabled)
+    public function testCacheBustingWorker($enabled, $separator)
     {
         $extension = new AsseticExtension();
-        $extension->load(array(array('workers' => array('cache_busting' => array('enabled' => $enabled)))), $this->container);
+        $extension->load(array(array('workers' => array('cache_busting' => array('enabled' => $enabled, 'separator' => $separator)))), $this->container);
 
         $def = $this->container->getDefinition('assetic.worker.cache_busting');
         $this->assertSame($enabled, $def->hasTag('assetic.factory_worker'));
+
+        $this->assertSame($separator, $this->container->getParameter('assetic.workers.cache_busting.separator'));
 
         $this->assertSaneContainer($this->getDumpedContainer());
     }
@@ -184,8 +186,10 @@ class AsseticExtensionTest extends \PHPUnit_Framework_TestCase
     public function getCacheBustingWorkerKeys()
     {
         return array(
-            array(true),
-            array(false),
+            array(true, ''),
+            array(false, null),
+            array(true, '_'),
+            array(false, '-'),
         );
     }
 
